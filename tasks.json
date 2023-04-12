@@ -2,7 +2,12 @@
   {
     "id": 1,
     "task": "Task 1",
-    "isDone": false
+    "isDone": true
+  },
+  {
+    "id": 2,
+    "task": "Task 2",
+    "isDone": true
   },
   {
     "id": 3,
