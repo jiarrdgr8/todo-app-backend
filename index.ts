@@ -13,9 +13,9 @@ const {
     GraphQLList 
 } = require("graphql") 
 const { graphqlHTTP } = require('express-graphql')
+const cors = require('cors')
 
-
-
+app.use(cors())
 
 // Defining Types
 const TaskType = new GraphQLObjectType({
@@ -52,7 +52,7 @@ const Mutation = new GraphQLObjectType({
             resolve(parent: any, args: any){
                 const lastTask = taskList[taskList.length - 1];
                 const newTask = {
-                    id: lastTask.id + 1,
+                    id: (taskList.length > 0 ? lastTask.id : 0) + 1,
                     task: args.task,
                     isDone: false
                 }

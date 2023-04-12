@@ -7,6 +7,8 @@ const path = require('path');
 const graphql = require('graphql');
 const { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLList } = require("graphql");
 const { graphqlHTTP } = require('express-graphql');
+const cors = require('cors');
+app.use(cors());
 // Defining Types
 const TaskType = new GraphQLObjectType({
     name: "Task",
@@ -40,7 +42,7 @@ const Mutation = new GraphQLObjectType({
             resolve(parent, args) {
                 const lastTask = taskList[taskList.length - 1];
                 const newTask = {
-                    id: lastTask.id + 1,
+                    id: (taskList.length > 0 ? lastTask.id : 0) + 1,
                     task: args.task,
                     isDone: false
                 };
@@ -105,4 +107,4 @@ app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true
 }));
-app.listen(5001, () => console.log('Server started on port 5000'));
+app.listen(5000, () => console.log('Server started on port 5000'));
